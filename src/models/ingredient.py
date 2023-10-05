@@ -52,6 +52,7 @@ class Ingredient:
     def __init__(self, name: str) -> None:
         self.name = name
         self.restrictions = restriction_map().get(name, set())
+        # argumento é um conjunto vazio
 
     def __hash__(self):
         return hash(self.name)
