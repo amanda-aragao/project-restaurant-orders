@@ -23,12 +23,16 @@ class MenuData:
                 amount = int(amount_str)
                 dish = Dish(dish_name, price)
 
-                if dish in self.dishes:
-                    dish_exist = next(
-                        (n_dish for n_dish in self.dishes
-                         if n_dish == dish), None
-                    )
+                dish_exist = next(
+                    # busca o prato no conjunto de pratos se ñ achar None
+                    (n_dish for n_dish in self.dishes if n_dish == dish),
+                    None
+                )
+
+                if dish_exist:
+                    # se o prato já existe adiciona a dependencia de ingredient
                     dish_exist.add_ingredient_dependency(ingredient, amount)
                 else:
                     dish.add_ingredient_dependency(ingredient, amount)
+                    # se não adiciona o prato no conjunto de pratos
                     self.dishes.add(dish)
