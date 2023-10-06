@@ -26,4 +26,21 @@ class MenuBuilder:
 
     # Req 4
     def get_main_menu(self, restriction=None) -> List[Dict]:
-        pass
+        menu_dish = []
+
+        for dish in self.menu_data.dishes:
+            if restriction in dish.get_restrictions():
+                continue  # para evitar o break e continuar o loop
+
+            ingrediente_estoque = all(
+                ingredient in self.inventory.inventory
+                for ingredient in dish.get_ingredients()
+            )
+            if ingrediente_estoque:
+                menu_dish.append({
+                    "dish_name": dish.name,
+                    "price": dish.price,
+                    "ingredients": dish.get_ingredients(),
+                    "restrictions": dish.get_restrictions(),
+                })
+        return menu_dish
